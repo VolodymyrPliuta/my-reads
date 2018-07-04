@@ -6,12 +6,12 @@ class Shelf extends React.Component {
   constructor(props) {
     super(props)
     this.state={
-     books: {}
+    books: {}
     }
   }
 
   componentDidMount() {
-    let books = BooksAPI.search('Astronomy');
+    let books = BooksAPI.search('Art');
     books.then(response => this.setState({books: {'currently_reading': response}}));
   }
 
