@@ -12,7 +12,26 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+    books: {},
     showSearchPage: false
+  }
+
+  componentWillMount() {
+    const books = BooksAPI.getAll();
+    books.then((response) => {
+      this.setState({books: {
+        'currently_reading': response.filter((book) => {
+          return book.shelf === 'currentlyReading'
+        }),
+        'want_to_read': response.filter((book) => {
+          return book.shelf === 'wantToRead'
+        }),
+        'read': response.filter((book) => {
+          return book.shelf === 'read'
+        }),
+      }})
+      console.log(this.state.books);
+    });
   }
 
   render() {
@@ -45,7 +64,7 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
-                  <Shelf titleSection="Currently Reading"/>
+                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books}/>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
@@ -88,7 +107,7 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
                 <div className="bookshelf">
-                  <Shelf titleSection="Want to Read"/>
+                  <Shelf titleSection="Want to Read" shelf="want_to_read" books={this.state.books}/>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
@@ -131,7 +150,7 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
                 <div className="bookshelf">
-                  <Shelf titleSection="Read"/>
+                  <Shelf titleSection="Read" shelf="read" books={this.state.books}/>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>

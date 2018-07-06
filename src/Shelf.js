@@ -1,33 +1,22 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
 class Shelf extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state={
-    books: {}
-    }
-  }
-
-  componentDidMount() {
-    let books = BooksAPI.search('Art');
-    books.then(response => this.setState({books:
-      {'currently_reading': response, 'want_to_read': response, 'read': response}
-    }));
-  }
 
   render() {
-    if(Object.keys(this.state.books).length !== 0) {
+    if(Object.keys(this.props.books).length !== 0) {
       let bookArr = [];
-      bookArr.push(<Book key={this.state.books.currently_reading[0].id} book={this.state.books.currently_reading[0]} />)
-      bookArr.push(<Book key={this.state.books.currently_reading[1].id} book={this.state.books.currently_reading[1]} />)
-      bookArr.push(<Book key={this.state.books.currently_reading[2].id} book={this.state.books.currently_reading[2]} />)
-        /*
-      this.state.books.currently_reading.map((book,index) =>
-        bookArr.push(<book key={book.id} book={book} />)
-      )
-      */
+      const shelfTitle = this.props.shelf;
+      // Iterate through the books and assign books to each shelf.
+      Object.values(this.props.books[shelfTitle]).map((book,index) => {
+        if(shelfTitle === 'currently_reading') {
+          bookArr.push(<Book key={book.id} book={book} />)
+        } else if(shelfTitle === 'want_to_read') {
+          bookArr.push(<Book key={book.id} book={book} />)
+        } else if(shelfTitle === 'read') {
+          bookArr.push(<Book key={book.id} book={book} />)
+        }
+      });
       console.log(this.state)
       return(
         <div className="bookshelf-title">
