@@ -21,9 +21,13 @@ class Shelf extends React.Component {
       return(
         <div className="bookshelf-title">
           <h1>{this.props.titleSection}</h1>
-          {bookArr}
+          <div className="bookshelf-books">
+            <ol className="books-grid">
+              {bookArr}
+            </ol>
+          </div>
         </div>
-        )
+      )
     } else {
       return(
         <div className="bookshelf-title">
