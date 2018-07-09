@@ -25,6 +25,7 @@ class BooksApp extends React.Component {
   componentWillMount() {
     const books = BooksAPI.getAll();
     books.then((response) => {
+      console.log(response)
       this.setState({books: {
         'currently_reading': response.filter((book) => {
           return book.shelf === 'currentlyReading'
@@ -37,6 +38,10 @@ class BooksApp extends React.Component {
         }),
       }})
     });
+  }
+
+  UpdateShelf = (bookid, shelf) => {
+    //BookAPI.update(bookid)
   }
 
   render() {

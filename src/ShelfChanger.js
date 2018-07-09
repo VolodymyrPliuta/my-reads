@@ -1,10 +1,20 @@
 import React from 'react'
+import * as BooksAPI from './BooksAPI'
 
 class ShelfChanger extends React.Component {
+  onChange = (event) => {
+    const data = BooksAPI.update({id: this.props.bookid},
+    event.target.value
+    )
+    data.then((response) => {
+      console.log(response)
+    })
+   console.log(event.target.value) 
+  }
   render() {
     return(
       <div className="book-shelf-changer">
-        <select>
+        <select onChange={this.onChange}>
           {console.log(this.props)}
           <option value="move" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
