@@ -16,6 +16,12 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  moveBook = (book) => {
+    //    for(let state of this.state){
+      console.log(this.state)
+    // } 
+  }
+
   componentWillMount() {
     const books = BooksAPI.getAll();
     books.then((response) => {
@@ -30,7 +36,6 @@ class BooksApp extends React.Component {
           return book.shelf === 'read'
         }),
       }})
-      console.log(this.state.books);
     });
   }
 
@@ -64,7 +69,7 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
-                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books}/>
+                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} bookChange={this.moveBook()}/>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>

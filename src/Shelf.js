@@ -10,11 +10,11 @@ class Shelf extends React.Component {
       // Iterate through the books and assign books to each shelf.
       Object.values(this.props.books[shelfTitle]).map((book,index) => {
         if(shelfTitle === 'currently_reading') {
-          bookArr.push(<Book key={book.id} book={book} />)
+          bookArr.push(<Book key={book.id} book={book} bookChange={this.props.bookChange} />)
         } else if(shelfTitle === 'want_to_read') {
-          bookArr.push(<Book key={book.id} book={book} />)
+          bookArr.push(<Book key={book.id} book={book} bookChange={this.props.bookChange} />)
         } else if(shelfTitle === 'read') {
-          bookArr.push(<Book key={book.id} book={book} />)
+          bookArr.push(<Book key={book.id} book={book} bookChange={this.props.bookChange} />)
         }
       });
       console.log(this.state)

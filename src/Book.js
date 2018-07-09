@@ -9,7 +9,7 @@ class Book extends React.Component {
         <div className="book" >
           <div className="book-top">
             <img className="book-cover" style={{ width: 128, height: 193}} src={this.props.book.imageLinks.smallThumbnail}/>
-            <ShelfChanger />
+            <ShelfChanger s={this.props}/>
           </div>
             <div className="book-title">{this.props.book.title}</div>
             <div className="book-authors"><em>{this.props.book.authors.toString()}</em></div>
