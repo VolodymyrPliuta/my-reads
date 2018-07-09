@@ -8,6 +8,7 @@ class ShelfChanger extends React.Component {
     )
     data.then((response) => {
       console.log(response)
+      this.props.refresh();
     })
    console.log(event.target.value) 
   }

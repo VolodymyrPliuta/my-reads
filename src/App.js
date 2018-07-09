@@ -22,8 +22,8 @@ class BooksApp extends React.Component {
     // } 
   }
 
-  componentWillMount() {
-    const books = BooksAPI.getAll();
+  refresh = () => {
+     const books = BooksAPI.getAll();
     books.then((response) => {
       console.log(response)
       this.setState({books: {
@@ -38,6 +38,10 @@ class BooksApp extends React.Component {
         }),
       }})
     });
+  }
+
+  componentWillMount() {
+    this.refresh()
   }
 
   UpdateShelf = (bookid, shelf) => {
@@ -74,7 +78,7 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
-                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} bookChange={this.moveBook()}/>
+                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} bookChange={this.moveBook()} refresh={this.refresh}/>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
@@ -117,7 +121,7 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
                 <div className="bookshelf">
-                  <Shelf titleSection="Want to Read" shelf="want_to_read" books={this.state.books}/>
+                  <Shelf titleSection="Want to Read" shelf="want_to_read" books={this.state.books} refresh={this.refresh}/>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
@@ -160,7 +164,7 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
                 <div className="bookshelf">
-                  <Shelf titleSection="Read" shelf="read" books={this.state.books}/>
+                  <Shelf titleSection="Read" shelf="read" books={this.state.books} refresh={this.refresh}/>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
