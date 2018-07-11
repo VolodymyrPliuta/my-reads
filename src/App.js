@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Header from './Header'
 import Shelf from './Shelf'
+import Search from './Search'
 
 class BooksApp extends React.Component {
   state = {
@@ -14,11 +15,6 @@ class BooksApp extends React.Component {
      */
     books: {},
     showSearchPage: false
-  }
-
-  moveBook = (book) => {
-    //    for(let state of this.state){
-    // } 
   }
 
   refresh = () => {
@@ -43,34 +39,30 @@ class BooksApp extends React.Component {
     this.refresh()
   }
 
+  searchBooks = (word) => {
+    const search = BooksAPI.search(word);
+  }
+
+  moveBookToShelf = () => {
+    
+  }
+
+  backArrow = () => {
+   this.setState({ showSearchPage: false })
+  }
   render() {
+    const r = BooksAPI.search('art')
+    r.then((resp) => {
+    console.log(resp)
+    })
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
-
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
+            <Search backArrow={this.backArrow} />
         ) : (
           <div className="list-books">
             <Header title="MyReads" />
-                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} bookChange={this.moveBook()} refresh={this.refresh}/>
+                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} refresh={this.refresh}/>
                   <Shelf titleSection="Want to Read" shelf="want_to_read" books={this.state.books} refresh={this.refresh}/>
                   <Shelf titleSection="Read" shelf="read" books={this.state.books} refresh={this.refresh}/>
             <div className="open-search">
