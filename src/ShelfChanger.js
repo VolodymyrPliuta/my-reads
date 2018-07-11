@@ -7,15 +7,14 @@ class ShelfChanger extends React.Component {
     event.target.value
     )
     data.then((response) => {
-      console.log(response)
       this.props.refresh();
     })
-   console.log(event.target.value) 
   }
+
   render() {
     return(
       <div className="book-shelf-changer">
-        <select onChange={this.onChange}>
+        <select onChange={this.onChange} defaultValue={this.props.bookShelf}>
           {console.log(this.props)}
           <option value="move" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>

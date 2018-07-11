@@ -43,10 +43,6 @@ class BooksApp extends React.Component {
     this.refresh()
   }
 
-  UpdateShelf = (bookid, shelf) => {
-    //BookAPI.update(bookid)
-  }
-
   render() {
     return (
       <div className="app">
