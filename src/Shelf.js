@@ -17,7 +17,6 @@ class Shelf extends React.Component {
           bookArr.push(<Book key={book.id} book={book} bookChange={this.props.bookChange}  refresh={this.props.refresh}/>)
         }
       });
-      console.log(this.state)
       return(
         <div className="bookshelf-title">
           <h1>{this.props.titleSection}</h1>
