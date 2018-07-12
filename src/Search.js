@@ -1,7 +1,20 @@
 import React from 'react'
+import Book from './Book'
 
 class Search extends React.Component {
+  onChange = (e) => {
+    if(e.length !== 0) {
+      this.props.searchBooks(e)
+    }
+  }
   render () {
+    console.log(this.props.searchBook)
+    let array = [];
+    if(this.props.searchBook.length > 0) {
+      this.props.searchBook.map(book => {
+        array.push(<Book key={book.id} book={book} bookChange={this.props.bookChange} refresh={this.props.refresh} />)
+      })
+    }
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -15,13 +28,15 @@ class Search extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                   */}
-            <input type="text" placeholder="Search by title or author"/>
-          </div>
-        </div>
-        <div className="search-books-results">
-          <ol className="books-grid"></ol>
-        </div>
-      </div>
+                  <input onChange={(e) => this.onChange(e.target.value )}  type="text" placeholder="Search by title or author"/>
+                </div>
+              </div>
+              <div className="search-books-results">
+                <ol className="books-grid">
+                  {array}
+                </ol>
+              </div>
+            </div>
     )
   }
 }

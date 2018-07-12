@@ -14,13 +14,13 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books: {},
-    showSearchPage: false
+    showSearchPage: false,
+    searchBook: []
   }
 
   refresh = () => {
      const books = BooksAPI.getAll();
     books.then((response) => {
-      console.log(response)
       this.setState({books: {
         'currently_reading': response.filter((book) => {
           return book.shelf === 'currentlyReading'
@@ -37,10 +37,14 @@ class BooksApp extends React.Component {
 
   componentWillMount() {
     this.refresh()
+    this.searchBooks('art')
   }
 
   searchBooks = (word) => {
     const search = BooksAPI.search(word);
+    search.then((response) => {
+     this.setState({'searchBook': response})
+    })
   }
 
   moveBookToShelf = () => {
@@ -58,7 +62,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-            <Search backArrow={this.backArrow} />
+            <Search searchBooks={this.searchBooks} searchBook={this.state.searchBook} backArrow={this.backArrow} refresh={this.refresh}/>
         ) : (
           <div className="list-books">
             <Header title="MyReads" />
