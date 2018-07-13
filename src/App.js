@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Header from './Header'
@@ -51,33 +52,23 @@ class BooksApp extends React.Component {
     })
   }
 
-  moveBookToShelf = () => {
-    
-  }
-
-  backArrow = () => {
-   this.setState({ showSearchPage: false })
-  }
   render() {
-    const r = BooksAPI.search('art')
-    r.then((resp) => {
-    console.log(resp)
-    })
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-            <Search clearSearch={this.clearSearch} searchBooks={this.searchBooks} searchBook={this.state.searchBook} backArrow={this.backArrow} refresh={this.refresh}/>
-        ) : (
+        <Route exact path='/search' render={() => (
+            <Search clearSearch={this.clearSearch} searchBooks={this.searchBooks} searchBook={this.state.searchBook} refresh={this.refresh}/>
+        )}/>
+        <Route exact path='/' render={() => (
           <div className="list-books">
             <Header title="MyReads" />
                   <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} refresh={this.refresh}/>
                   <Shelf titleSection="Want to Read" shelf="want_to_read" books={this.state.books} refresh={this.refresh}/>
                   <Shelf titleSection="Read" shelf="read" books={this.state.books} refresh={this.refresh}/>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to="/search">Add a book</Link>
             </div>
           </div>
-        )}
+        )}/>
       </div>
     )
   }
