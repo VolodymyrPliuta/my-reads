@@ -43,6 +43,7 @@ class BooksApp extends React.Component {
   searchBooks = (word) => {
     const search = BooksAPI.search(word);
     search.then((response) => {
+			console.log(response)
      this.setState({'searchBook': response})
     })
   }
