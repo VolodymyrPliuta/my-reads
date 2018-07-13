@@ -6,6 +6,9 @@ class Search extends React.Component {
     if(e.length !== 0) {
       this.props.searchBooks(e)
     }
+    else {
+      this.props.clearSearch() 
+    }
   }
   render () {
     console.log(this.props.searchBook)
@@ -14,6 +17,9 @@ class Search extends React.Component {
       this.props.searchBook.map(book => {
         array.push(<Book key={book.id} book={book} bookChange={this.props.bookChange} refresh={this.props.refresh} />)
       })
+    }
+    else {
+      array.push(<h1> Type in the above search field to get a result</h1>) 
     }
     return (
       <div className="search-books">

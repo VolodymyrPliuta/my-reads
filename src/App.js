@@ -35,9 +35,12 @@ class BooksApp extends React.Component {
     });
   }
 
+  clearSearch = () => {
+    this.setState({'searchBook': []});
+  }
+
   componentWillMount() {
     this.refresh()
-    this.searchBooks('art')
   }
 
   searchBooks = (word) => {
@@ -63,7 +66,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-            <Search searchBooks={this.searchBooks} searchBook={this.state.searchBook} backArrow={this.backArrow} refresh={this.refresh}/>
+            <Search clearSearch={this.clearSearch} searchBooks={this.searchBooks} searchBook={this.state.searchBook} backArrow={this.backArrow} refresh={this.refresh}/>
         ) : (
           <div className="list-books">
             <Header title="MyReads" />
