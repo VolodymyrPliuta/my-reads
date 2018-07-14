@@ -89,3 +89,4 @@ update(book, shelf)
 
 Anybody is welcome to contribute to this project
 
+![MyReads](https://github.com/VolodymyrPliuta/MyReads/blob/master/img/myreads.png)
