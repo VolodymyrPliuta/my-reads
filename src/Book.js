@@ -1,22 +1,19 @@
 import React from 'react'
 import ShelfChanger from './ShelfChanger'
 
-class Book extends React.Component {
-
-  render() {
+const Book = (props) => {
     return (
       <li>
         <div className="book" >
           <div className="book-top">
-            <img className="book-cover" style={{ width: 128, height: 193}} src={this.props.book.hasOwnProperty('imageLinks') ? this.props.book.imageLinks.smallThumbnail : ''}/>
-            <ShelfChanger bookid={this.props.book.id} refresh={this.props.refresh} bookShelf={this.props.book.shelf}/>
+            <img className="book-cover" style={{ width: 128, height: 193}} src={props.book.hasOwnProperty('imageLinks') ? props.book.imageLinks.smallThumbnail : ''}/>
+            <ShelfChanger bookid={props.book.id} refresh={props.refresh} bookShelf={props.book.shelf}/>
           </div>
-            <div className="book-title">{this.props.book.title}</div>
-            <div className="book-authors"><em>{this.props.book.hasOwnProperty('authors') ? this.props.book.authors.toString() : this.props.book.authors = ''}</em></div>
+            <div className="book-title">{props.book.title}</div>
+            <div className="book-authors"><em>{props.book.hasOwnProperty('authors') ? props.book.authors.toString() : props.book.authors = ''}</em></div>
         </div>
       </li>
     )
   }
-}
 
 export default Book
