@@ -8,21 +8,15 @@ import Search from './Search'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     books: {},
     showSearchPage: false,
     searchBook: []
   }
 
   refresh = () => {
-     const books = BooksAPI.getAll();
-    books.then((response) => {
-      this.setState({books: {
+    let data = BooksAPI.getAll();
+    data.then((response) => {
+      let books = {
         'currently_reading': response.filter((book) => {
           return book.shelf === 'currentlyReading'
         }),
@@ -32,7 +26,8 @@ class BooksApp extends React.Component {
         'read': response.filter((book) => {
           return book.shelf === 'read'
         }),
-      }})
+      }
+      this.setState({'books': books})
     });
   }
 
@@ -47,8 +42,7 @@ class BooksApp extends React.Component {
   searchBooks = (word) => {
     const search = BooksAPI.search(word);
     search.then((response) => {
-			console.log(response)
-     this.setState({'searchBook': response})
+      this.setState({'searchBook': response})
     })
   }
 
@@ -56,20 +50,20 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path='/search' render={() => (
-            <Search clearSearch={this.clearSearch} searchBooks={this.searchBooks} searchBook={this.state.searchBook} refresh={this.refresh}/>
+          <Search clearSearch={this.clearSearch} searchBooks={this.searchBooks} searchBook={this.state.searchBook} refresh={this.refresh}/>
         )}/>
-        <Route exact path='/' render={() => (
-          <div className="list-books">
-            <Header title="MyReads" />
-                  <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} refresh={this.refresh}/>
-                  <Shelf titleSection="Want to Read" shelf="want_to_read" books={this.state.books} refresh={this.refresh}/>
-                  <Shelf titleSection="Read" shelf="read" books={this.state.books} refresh={this.refresh}/>
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
+      <Route exact path='/' render={() => (
+        <div className="list-books">
+          <Header title="MyReads" />
+          <Shelf titleSection="Currently Reading" shelf="currently_reading" books={this.state.books} refresh={this.refresh}/>
+          <Shelf titleSection="Want to Read" shelf="want_to_read" books={this.state.books} refresh={this.refresh}/>
+          <Shelf titleSection="Read" shelf="read" books={this.state.books} refresh={this.refresh}/>
+          <div className="open-search">
+            <Link to="/search">Add a book</Link>
           </div>
-        )}/>
-      </div>
+        </div>
+      )}/>
+  </div>
     )
   }
 }

@@ -8,11 +8,10 @@ class Search extends React.Component {
       this.props.searchBooks(e)
     }
     else {
-      this.props.clearSearch() 
+      this.props.clearSearch()
     }
   }
   render () {
-    console.log(this.props.searchBook)
     let array = [];
     let d = new Date();
     if(this.props.searchBook.length > 0) {
@@ -28,14 +27,6 @@ class Search extends React.Component {
         <div className="search-books-bar">
           <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
-            {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                  */}
                   <input onChange={(e) => this.onChange(e.target.value )}  type="text" placeholder="Search by title or author"/>
                 </div>
               </div>
