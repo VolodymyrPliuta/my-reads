@@ -17,10 +17,10 @@ class Search extends React.Component {
     let d = new Date();
     if(this.props.searchBook.length > 0) {
       this.props.searchBook.map(book => {
+        book.shelf = 'none'
         array.push(<Book key={book.id} book={book} bookChange={this.props.bookChange} refresh={this.props.refresh} />)
       })
-    }
-    else {
+    } else {
       array.push(<h1 key={d.getTime()}> Type in the above search field to get a result</h1>) 
     }
     return (
